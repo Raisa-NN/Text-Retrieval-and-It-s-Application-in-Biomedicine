@@ -1,0 +1,10 @@
+# Ignore data and outputs
+PMC_Patients/
+outputs/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore OS files
+.DS_Store
