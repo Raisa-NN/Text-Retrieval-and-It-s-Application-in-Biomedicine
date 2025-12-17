@@ -1,36 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-This module implements:
-  - BM25-based lexical retrieval
+Responsibilities:
+  - BM25-based lexical retrieval: probabilistic ranking function with TF saturation + length normalization built in.
   - Precision@k and Recall@k evaluation
-  - Aggregation of per-patient and average metrics
-
-It is designed for use in the PMC_Patients assignment, where
-gold-standard similar patients are provided in the input JSON files.
+  - Aggregated evaluation
 """
-
-# similarity_utils.py
 import numpy as np
 from rank_bm25 import BM25Okapi
 
-def bm25_retrieve(processed_docs, uids, k1=1.5, b=0.75, top_k=5):
+def bm25_retrieve(processed_docs, uids, k1=1.5, b=0.75, top_k=15):
     """
-    Perform BM25-based retrieval for all patients in the corpus. Based on TF-IDF
+    Retrieve top-k similar patients for each patient using BM25.
+    This treats each patient document as a query against the entire corpus
+    and returns ranked neighbors (excluding the patient itself).
+
     Args:
-        processed_docs (list[str]):
-            List of preprocessed patient documents (one per patient).
-            Each document should already be tokenized into whitespace-
-            separated terms (e.g., lowercased, stopwords removed).
-        uids (list[str]):
-            List of patient UIDs aligned with `processed_docs`.
-        k1 (float, optional):
-            BM25 term-frequency saturation parameter.
-            Typical values are in the range [1.2, 2.0].
-        b (float, optional):
-            BM25 document length normalization parameter in [0, 1].
-            b=0 disables length normalization, b=1 applies full normalization.
-        top_k (int, optional):
-            Number of similar patients to retrieve per query.
+        processed_docs (list[str]): List of whitespace-tokenized documents (strings).
+        uids (list[str]): Document IDs aligned with processed_docs.
+        k1 (float): BM25 term-frequency saturation parameter [1.2, 2.0].
+        b (float): BM25 length normalization parameter from [0, 1].
+        b=0 disables length normalization, b=1 applies full normalization.
+        top_k (int): Number of similar patients to retrieve per query.
 
     Returns:
         dict[str, list[str]]:
@@ -52,15 +42,22 @@ def bm25_retrieve(processed_docs, uids, k1=1.5, b=0.75, top_k=5):
 def precision_recall_at_k(retrieved, gold_list, k=5):
     """
     Compute precision@k and recall@k for a single query.
-
+    Args:
+        retrieved: Ranked list of retrieved IDs.
+        gold_list: List of relevant gold standard IDs.
+        k: Rank cutoff.
     Relevance is treated as binary: any patient UID present in the gold
     list is considered relevant, regardless of its original relevance score.
     """
     
     topk = retrieved[:k]
+    # Convert gold list to set for fast membership tests
     gold = set(gold_list)
+    # Count how many of the top-k retrieved items appear in the gold list
     hits = sum(1 for x in topk if x in gold)
+    # Of the k retrieved items, what fraction are relevant?
     p = hits / float(k) if k else 0.0
+    # Of all relevant (gold) items, what fraction were retrieved in the top-k?
     r = hits / float(len(gold)) if gold else 0.0
     return p, r
 

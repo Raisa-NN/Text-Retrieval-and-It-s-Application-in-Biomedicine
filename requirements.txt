@@ -1,4 +1,4 @@
 numpy
 rank-bm25
 nltk
-python main.py ./PMC_Patients --no_llm
+requests

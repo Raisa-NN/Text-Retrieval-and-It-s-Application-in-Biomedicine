@@ -1,12 +1,16 @@
-import nltk
+"""
+Responsibility:
+- Normalize text to improve lexical retrieval (BM25)
+"""
+#import nltk
 import json
 import os
-from collections import defaultdict
+#from collections import defaultdict
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-import sys
+#from nltk.tokenize import word_tokenize
+#import sys
 
 def read_txt_files_from_directory(directory_path):
     file_contents = {}

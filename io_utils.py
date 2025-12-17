@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 This module is designed for pipelines that store one patient per JSON file.
-It provides:
-  - `read_patient_jsons(...)` to load and extract patient identifiers + text
-  - `save_json(...)` to write results (e.g., retrieval outputs) as JSON
-
-@author: raisa
+Responsibilities:
+- Read patient JSON files from a folder
+- Assemble raw text fields for retrieval
+- Extract gold-standard similar patient lists from `similar_patients`
+- Save JSON outputs in a consistent "pretty" format
 """
-
-# io_utils.py
 import os
 import json
 import glob
@@ -18,6 +16,9 @@ import ast
 def read_patient_jsons(input_dir, limit=None):
     """
     Reads all `*.json` files in `input_dir`.
+    Args:
+        input_dir (str): path to a folder containing *.json patient files (PATH_TO_INPUT_DATA_FOLDER folder).
+        limit (int): if provided, only read the first `limit` JSON files (used for --sample when run on CLI).
 
     Returns:
         patient_uids (list[str]):
@@ -54,6 +55,7 @@ def read_patient_jsons(input_dir, limit=None):
         # --------------------
         # Patient UID
         # --------------------
+        # Use patient_uid if possible; fallback to patient_id; final fallback to filename    
         uid = str(
             data.get("patient_uid")
             or data.get("patient_id")
@@ -63,6 +65,7 @@ def read_patient_jsons(input_dir, limit=None):
         # --------------------
         # Patient text
         # --------------------
+        # Build document text from title + patient narrative (fallback to any string fields)
         parts = []
         if isinstance(data.get("title"), str):
             parts.append(data["title"])
@@ -81,6 +84,7 @@ def read_patient_jsons(input_dir, limit=None):
         # --------------------
         # Gold similar patients
         # --------------------
+        # Parse gold standard similar patients
         sp = data.get("similar_patients", {})
         sp_dict = {}
 
@@ -88,12 +92,12 @@ def read_patient_jsons(input_dir, limit=None):
             sp_dict = sp
         elif isinstance(sp, str):
             try:
+                # safely converts a string that looks like a Python dictionary into the actual Python dict.
                 sp_dict = ast.literal_eval(sp)
-                # safely converts a string that looks like a Python literal (dict/list/tuple/str/num) into the actual Python object.
             except Exception:
                 sp_dict = {}
 
-        # Treat relevance levels 1 and 2 equally (binary relevance)
+        # Treat relevance levels 1 and 2 equally (both relevant)
         gold[uid] = [str(k) for k in sp_dict.keys()]
 
     return uids, texts, gold
