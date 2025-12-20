@@ -2,3 +2,4 @@ numpy
 rank-bm25
 nltk
 requests
+gensim

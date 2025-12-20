@@ -1,0 +1,146 @@
+{
+  "bm25": {
+    "per_patient": {
+      "4006568-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "2931309-3": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5875406-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5533051-4": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5296833-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "4296436-4": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3917414-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3750892-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "7641022-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3075827-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      }
+    },
+    "summary": {
+      "avg_precision@5": 0.0,
+      "avg_recall@5": 0.0
+    }
+  },
+  "word2vec": {
+    "per_patient": {
+      "4006568-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "2931309-3": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5875406-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5533051-4": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5296833-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "4296436-4": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3917414-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3750892-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "7641022-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3075827-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      }
+    },
+    "summary": {
+      "avg_precision@5": 0.0,
+      "avg_recall@5": 0.0
+    }
+  },
+  "llm": {
+    "per_patient": {
+      "4006568-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "2931309-3": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5875406-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5533051-4": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "5296833-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "4296436-4": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3917414-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3750892-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "7641022-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      },
+      "3075827-1": {
+        "precision@5": 0.0,
+        "recall@5": 0.0
+      }
+    },
+    "summary": {
+      "avg_precision@5": 0.0,
+      "avg_recall@5": 0.0
+    }
+  }
+}
